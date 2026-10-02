@@ -42,11 +42,15 @@ The perfect-foresight results are theoretical upper bounds. They are not live tr
 
 ## Data
 
-The notebook expects an hourly master dataset at:
+The repository includes the compact hourly dataset used by the notebook at:
 
 ```text
-data/processed/master_dataset.parquet
+data/processed/battery_market_hourly.parquet
 ```
+
+It contains 96,432 hourly observations from 2015 through 2025 and only the
+price and calendar fields required by the battery analysis. The larger source
+market dataset and unrelated feature families are intentionally excluded.
 
 Required columns are:
 
@@ -57,7 +61,7 @@ Required columns are:
 - `hour_alberta`
 - `pool_price`
 
-The underlying market dataset is not committed to this repository. See [data/README.md](data/README.md) for details.
+See [data/README.md](data/README.md) for its schema and scope.
 
 ## Setup
 

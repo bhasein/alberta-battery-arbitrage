@@ -1,12 +1,15 @@
 # Data
 
-The market data used in this analysis are not committed to GitHub.
-
-Place the hourly analysis dataset at:
+The battery analysis uses the repository's compact hourly market dataset:
 
 ```text
-data/processed/master_dataset.parquet
+data/processed/battery_market_hourly.parquet
 ```
+
+This Parquet file contains 96,432 consecutive hourly observations covering
+Alberta calendar years 2015 through 2025. It was extracted from the audited
+master dataset used by the broader Alberta electricity-market research
+project. Only fields consumed by the battery notebook are retained.
 
 The battery notebook currently requires the following fields:
 
@@ -19,4 +22,6 @@ The battery notebook currently requires the following fields:
 | `hour_alberta` | Alberta-local hour |
 | `pool_price` | AESO hourly pool price in CAD/MWh |
 
-Large raw, intermediate, and processed datasets are excluded by `.gitignore`.
+The full master table, unrelated engineered features, raw files, and
+intermediate data products are excluded. The committed Parquet is the complete
+input required to reproduce the current notebook.

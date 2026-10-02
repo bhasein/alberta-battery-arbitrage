@@ -22,10 +22,11 @@ env/
 # Data products
 data/raw/
 data/interim/
-data/processed/*
-!data/processed/.gitkeep
 *.parquet
 *.feather
+data/processed/*
+!data/processed/.gitkeep
+!data/processed/battery_market_hourly.parquet
 
 # Generated outputs
 outputs/
