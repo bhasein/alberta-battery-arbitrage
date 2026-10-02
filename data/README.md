@@ -1,27 +1,32 @@
 # Data
 
-The battery analysis uses the repository's compact hourly market dataset:
+The battery analyses use the repository's compact hourly market dataset:
 
 ```text
 data/processed/battery_market_hourly.parquet
 ```
 
-This Parquet file contains 96,432 consecutive hourly observations covering
-Alberta calendar years 2015 through 2025. It was extracted from the audited
-master dataset used by the broader Alberta electricity-market research
-project. Only fields consumed by the battery notebook are retained.
+The file contains 96,432 consecutive hourly observations for Alberta calendar
+years 2015 through 2025. It was extracted from the audited master dataset used
+by the broader Alberta electricity-market research project. Only fields used by
+the two battery notebooks are retained.
 
-The battery notebook currently requires the following fields:
+Notebook 01 uses the timestamps, local calendar fields, and AESO pool price.
+Notebook 02 additionally uses forecast-safe calendar fields, lagged prices and
+system conditions, gas-price history, and the archived AESO pool-price forecast
+field. The archived AESO forecast is an external benchmark only because its
+historical issue and revision timing has not been verified.
 
-| Column | Description |
+The dataset contains these column families:
+
+| Family | Columns |
 |---|---|
-| `timestamp_utc` | Unique hourly timestamp in UTC |
-| `timestamp_alberta` | Corresponding Alberta-local timestamp |
-| `year_alberta` | Alberta-local calendar year |
-| `month_alberta` | Alberta-local calendar month |
-| `hour_alberta` | Alberta-local hour |
-| `pool_price` | AESO hourly pool price in CAD/MWh |
+| Time | `timestamp_utc`, `timestamp_alberta`, `year_alberta`, `month_alberta`, `hour_alberta` |
+| Realized outcome | `pool_price` |
+| Known calendar | cyclic hour/day/month fields, weekend and holiday flags |
+| Prior market state | 1-, 24-, and 168-hour price lags; prior 24-hour price mean and volatility |
+| Prior system state | lagged net load, outages, net imports, and gas price |
+| External benchmark | `aeso_forecast_pool_price_cad_mwh` |
 
-The full master table, unrelated engineered features, raw files, and
-intermediate data products are excluded. The committed Parquet is the complete
-input required to reproduce the current notebook.
+The full market master table, raw source files, unrelated engineered features,
+and intermediate data products are excluded.
